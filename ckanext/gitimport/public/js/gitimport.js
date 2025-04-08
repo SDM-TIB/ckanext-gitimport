@@ -65,18 +65,27 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("field-repository_stars").value = data.stars || 0;
             document.getElementById("field-repository_forks").value = data.forks || 0;
             document.getElementById("field-programming_language").value = data.programming_language || "No programming language found";
+             
     
             // Handle topics and contributors
             handleTopics(data.topics || []);
             handleContributors(data.contributors || []);
     
             // Set README URL
-            if (data.readme_url) {
+            if (data.readme_content) {
+              // Populate the README content into the "notes" field
+              document.getElementById("field-notes").value = data.readme_content;
+            } else {
+              console.error("README content not found.");
+            }
+           
+                
+            /*if (data.readme_url) {
               sessionStorage.setItem("githubReadmeUrl", data.readme_url);
               setReadmeLink(data.readme_url);
             } else {
               console.error("README URL not found.");
-            }
+            }*/
           }
         })
         .catch(function (error) {

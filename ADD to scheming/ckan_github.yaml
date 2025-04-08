@@ -9,12 +9,17 @@ dataset_fields:
 - field_name: github_repo
   label: Repository Name
   preset: title
-  form_placeholder: Name of the GitHub repository
+  form_placeholder:  e.g. Org/Repo
 
 - field_name: name
   label: URL
   preset: dataset_slug
   form_placeholder: eg. my-dataset
+  
+- field_name: notes
+  label: README
+  form_snippet: markdown.html
+  form_placeholder: Fetch you README.md here 
 
 - field_name: github_owner
   label: Repository Owner

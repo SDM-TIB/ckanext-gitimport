@@ -66,7 +66,19 @@ def fetch_github_metadata():
         readme_response = requests.get(f"{base_url}/readme", headers=headers)
         if readme_response.status_code == 200:
             readme_data = readme_response.json()
-            metadata["readme_url"] = readme_data.get("html_url", "README not found")
+            download_url = readme_data.get("download_url", None)
+    
+            if download_url:
+                # Fetch the raw README content
+                raw_readme_response = requests.get(download_url)
+                if raw_readme_response.status_code == 200:
+                    metadata["readme_content"] = raw_readme_response.text  # Store the raw text content
+                else:
+                    metadata["readme_content"] = "Failed to fetch README content"
+            else:
+                metadata["readme_content"] = "README not available for download"
+        else:
+            metadata["readme_content"] = "README content not available"
     else:
         metadata["error"] = "Failed to fetch repository metadata"
 

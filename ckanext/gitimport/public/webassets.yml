@@ -14,3 +14,11 @@ gitimport_js:
   extra:
     preload:
       - base/main
+
+imgs_css:
+  contents:
+  - css/imgs.css
+  output: gitimport/%(version)s_imgs.css
+  extra:
+    preload:
+      - base/main
