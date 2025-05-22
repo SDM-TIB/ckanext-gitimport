@@ -29,8 +29,25 @@ To install ckanext-gitimport:
     pip install -e .
 	pip install -r requirements.txt
 
+3. **Add support for the "GitHub" dataset type title in your CKAN theme**:  
+   If you are using a custom CKAN theme such as `ckanext-TIBtheme`, you **must** update the method `get_dataset_type_title` in:
 
-3. Restart CKAN. For example if you've deployed CKAN with Apache on Ubuntu:
+   `Plugins/ckanext-TIBtheme/ckanext/TIBtheme/plugin.py`
+   
+to this:
+    ```python
+    def get_dataset_type_title(dataset_type):
+        aux_list = {
+            'dataset': 'Dataset',
+            'vdataset': 'Imported Dataset',
+            'service': 'Service',
+            'github': 'GitHub'  # Add this line
+        }
+    ```
+
+    This step is required to ensure the "GitHub" dataset type displays correctly in the CKAN UI.
+
+5. Restart CKAN. For example if you've deployed CKAN with Apache on Ubuntu:
 
      sudo service apache2 reload
 
