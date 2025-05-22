@@ -24,7 +24,7 @@ To install ckanext-gitimport:
 
 2. Clone the source and install it on the virtualenv
 
-    git clone https://github.com/Sakor99/ckanext-gitimport
+    git clone https://github.com/SDM-TIB/ckanext-gitimport
     cd ckanext-gitimport
     pip install -e .
 	pip install -r requirements.txt
@@ -53,7 +53,7 @@ To use the plugin:
 
 1. In your CKAN instance, access the "GitHub Import" button in navigation bar.
 2. Then click on "Add GitHub" where you will find the template.
-3. Enter the GitHub repository name (e.g., Sakor99/ckanext-gitimport) in the provided template field then press the "Fetch Metadata" button.
+3. Enter the GitHub repository name (e.g., SDM-TIB/ckanext-gitimport) in the provided template field then press the "Fetch Metadata" button.
 4. The plugin will then fetch and display the repository metadata.
 
 ## Note
