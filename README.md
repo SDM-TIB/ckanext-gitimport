@@ -34,9 +34,9 @@ To install ckanext-gitimport:
 
    `Plugins/ckanext-TIBtheme/ckanext/TIBtheme/plugin.py`
    
-to this:
+	to this:
 
-    ```
+    ```python
     def get_dataset_type_title(dataset_type):
         aux_list = {
             'dataset': 'Dataset',
