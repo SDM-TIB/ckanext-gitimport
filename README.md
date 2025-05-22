@@ -36,7 +36,7 @@ To install ckanext-gitimport:
    
 to this:
 
-    ```python
+    ```bash
     def get_dataset_type_title(dataset_type):
         aux_list = {
             'dataset': 'Dataset',
