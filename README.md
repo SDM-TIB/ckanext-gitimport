@@ -16,6 +16,8 @@ Compatibility with core CKAN versions:
 | 2.9             | yes           |
 | 2.8 and earlier | not tested    |
 
+This extension also requires [`ckanext-scheming`](https://github.com/ckan/ckanext-scheming) to be installed. 
+
 ## Installation
 
 To install ckanext-gitimport:
