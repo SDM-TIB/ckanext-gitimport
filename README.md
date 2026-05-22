@@ -10,9 +10,11 @@ The CKAN GitImport Plugin enables users to fetch and display GitHub repository m
 Compatibility with core CKAN versions:
 
 | CKAN version    | Compatible?   |
-| --------------- | ------------- |
+|-----------------| ------------- |
+| 2.11 and newer  | not tested    |
 | 2.10            | yes           |
-| 2.9 and earlier | not tested    |
+| 2.9             | yes           |
+| 2.8 and earlier | not tested    |
 
 ## Installation
 
