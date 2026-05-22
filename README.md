@@ -58,7 +58,7 @@ To install ckanext-gitimport:
 
 1. Add the plugin `gitimport` to the `ckan.plugins` list in the CKAN config file`ckan-entrypoint.sh`.
   
-3. Add the yaml File `ckanext.scheming:ckan_github.yaml` to the `scheming.dataset_schemas` list in the CKAN config file `ckan-entrypoint.sh`.
+3. Add `ckanext.gitimport:ckan_github.yaml` to the `scheming.dataset_schemas` entry in your CKAN config.
   
 4. The plugin requires a GitHub access token to fetch repository data. Please ensure that the token is valid as they usually expire after a certain time. You will need to regenerate a new token periodically to maintain functionality.
 
