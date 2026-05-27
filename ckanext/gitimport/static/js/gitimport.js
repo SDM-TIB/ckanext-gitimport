@@ -162,7 +162,17 @@ document.addEventListener("DOMContentLoaded", function () {
     // Main logic — button is rendered by github_repo.html, just wire up events.
     var repoInput = document.getElementById("field-github_repo");
     var fetchButton = document.getElementById("fetch-metadata-btn");
+    // lastFetchedRepo tracks what was actually fetched, so blur and button
+    // click can avoid re-fetching the same repo. originalRepoName tracks the
+    // typed value so the input listener can detect changes and reset fields.
     var originalRepoName = "";
+    var lastFetchedRepo = "";
+
+    function doFetch(repoName) {
+      resetFields();
+      fetchGitHubMetadata(repoName);
+      lastFetchedRepo = repoName;
+    }
 
     if (repoInput) {
       if (fetchButton) {
@@ -170,9 +180,7 @@ document.addEventListener("DOMContentLoaded", function () {
           event.preventDefault();
           var repoName = repoInput.value.trim();
           if (repoName) {
-            resetFields();
-            fetchGitHubMetadata(repoName);
-            originalRepoName = repoName;
+            doFetch(repoName);
           }
         });
       }
@@ -185,14 +193,24 @@ document.addEventListener("DOMContentLoaded", function () {
         if (repoName === "") {
           resetFields();
           originalRepoName = "";
+          lastFetchedRepo = "";
           window.location.reload();
           return;
         }
 
-        // If the repo name changes, we reset all fields
+        // If the repo name changes, reset fields and clear the last fetch
         if (repoName !== originalRepoName) {
           resetFields();
           originalRepoName = repoName;
+          lastFetchedRepo = "";
+        }
+      });
+
+      // Fetch on blur so the user doesn't have to click the button
+      repoInput.addEventListener("blur", function () {
+        var repoName = this.value.trim();
+        if (repoName && repoName !== lastFetchedRepo) {
+          doFetch(repoName);
         }
       });
 
@@ -204,6 +222,7 @@ document.addEventListener("DOMContentLoaded", function () {
         this.value = newRepoName;
 
         resetFields();
+        lastFetchedRepo = "";
       });
     }
   }
