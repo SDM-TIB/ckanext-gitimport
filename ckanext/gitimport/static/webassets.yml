@@ -22,3 +22,11 @@ imgs_css:
   extra:
     preload:
       - base/main
+
+btn_css:
+  contents:
+    - css/btn.css
+  output: gitimport/%(version)s_btn.css
+  extra:
+    preload:
+      - base/main

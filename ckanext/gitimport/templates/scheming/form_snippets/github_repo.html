@@ -1,0 +1,38 @@
+{% set errors = errors[field.field_name] %}
+{% asset "gitimport/btn_css" %}
+
+<div class="form-group{% if errors %} error{% endif %}">
+  <label class="control-label" for="field-{{ field.field_name }}">
+    {%- if h.scheming_field_required(field) %}
+      <span title="{{ _('This field is required') }}" class="control-required">*</span>
+    {% endif -%}
+    {{- h.scheming_language_text(field.label) -}}
+  </label>
+  <div class="controls control-medium">
+    <div style="display:flex; align-items:flex-start; gap:8px;">
+
+      {# Wrap the input in its own div so slug.js injects .slug-preview      #}
+      {# inside this column, leaving the button unaffected on the right side. #}
+      <div style="flex:1 1 auto; min-width:0;">
+        <input
+          id="field-{{ field.field_name }}"
+          type="text"
+          class="form-control"
+          name="{{ field.field_name }}"
+          placeholder="{{ h.scheming_language_text(field.form_placeholder) }}"
+          value="{{ data[field.field_name] or '' }}"
+          data-module="slug-preview-target"
+        />
+      </div>
+
+      <button type="button" id="fetch-metadata-btn" class="btn btn-primary">
+        {{ _('Fetch Metadata') }}
+      </button>
+
+    </div>
+    {% if errors %}
+      <span class="error-block">{{ errors | join(', ') }}</span>
+    {% endif %}
+    {%- snippet 'scheming/form_snippets/help_text.html', field=field -%}
+  </div>
+</div>

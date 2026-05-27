@@ -66,11 +66,11 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("field-repository_forks").value = data.forks || 0;
             document.getElementById("field-programming_language").value = data.programming_language || "No programming language found";
              
-    
+
             // Handle topics and contributors
             handleTopics(data.topics || []);
             handleContributors(data.contributors || []);
-    
+
             // Set README URL
             if (data.readme_content) {
               // Populate the README content into the "notes" field
@@ -78,8 +78,8 @@ document.addEventListener("DOMContentLoaded", function () {
             } else {
               console.error("README content not found.");
             }
-           
-                
+
+
             /*if (data.readme_url) {
               sessionStorage.setItem("githubReadmeUrl", data.readme_url);
               setReadmeLink(data.readme_url);
@@ -96,15 +96,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function handleAuthors(contributors) {
       var authors = contributors.map(contributor => contributor.name).filter(name => name);
-    
+
       if (authors.length > 0) {
         document.getElementById("field-github_author").value = authors[0];
       }
-    
+
       for (var i = 1; i < authors.length; i++) {
         var fieldId = `field-extra_authors-${i-1}-extra_author`;
         var existingField = document.getElementById(fieldId);
-    
+
         // Check if the field already exists before adding new ones
         if (existingField) {
           existingField.value = authors[i];
@@ -120,71 +120,67 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       }
     }
-    
+
     function handleContributors(contributors) {
       contributors.forEach((contributor, index) => {
         var fieldId = index === 0 ? "field-github_contributor" : `field-extra_contribs-${index-1}-extra_contrib`;
         var existingField = document.getElementById(fieldId);
-    
+
         // Check if the field already exists before adding new ones
         if (!existingField) {
           var addButton = document.querySelector('.btn.btn-link[name="repeating-add"]');
           addButton.click();
           existingField = document.getElementById(fieldId);
         }
-    
+
         if (existingField) {
           existingField.value = contributor.login;
         }
       });
-    
+
       handleAuthors(contributors);
     }
-    
+
     function handleTopics(topics) {
       topics.forEach((topic, index) => {
         var fieldId = index === 0 ? "field-repository_topics" : `field-extra_topics-${index-1}-extra_topic`;
         var existingField = document.getElementById(fieldId);
-    
+
         // Check if the field already exists before adding new ones
         if (!existingField) {
           var addButton = document.querySelectorAll('.btn.btn-link[name="repeating-add"]')[2];
           addButton.click();
           existingField = document.getElementById(fieldId);
         }
-    
+
         if (existingField) {
           existingField.value = topic;
         }
       });
     }
 
-    // Main logic
+    // Main logic — button is rendered by github_repo.html, just wire up events.
     var repoInput = document.getElementById("field-github_repo");
+    var fetchButton = document.getElementById("fetch-metadata-btn");
     var originalRepoName = "";
-    var fetchButton;
 
     if (repoInput) {
-      // Create and insert the fetch button next to the repo input
-      fetchButton = document.createElement("button");
-      fetchButton.innerText = "Fetch Metadata";
-      fetchButton.style.display = "inline";
-      fetchButton.onclick = function(event) {
-        event.preventDefault();
-        
-        var repoName = repoInput.value.trim();
-        if (repoName) {
-          resetFields();
-          fetchGitHubMetadata(repoName);
-          originalRepoName = repoName; // Update the originalRepoName after fetching
-        }
-      };
-      repoInput.parentNode.insertBefore(fetchButton, repoInput.nextSibling);
+      if (fetchButton) {
+        fetchButton.addEventListener("click", function (event) {
+          event.preventDefault();
+          var repoName = repoInput.value.trim();
+          if (repoName) {
+            resetFields();
+            fetchGitHubMetadata(repoName);
+            originalRepoName = repoName;
+          }
+        });
+      }
 
       // Event listener for "input" events
       repoInput.addEventListener("input", function () {
         var repoName = this.value.trim();
-      
+
         // If the user erases the repoName, reload the page
         if (repoName === "") {
           resetFields();
@@ -192,7 +188,7 @@ document.addEventListener("DOMContentLoaded", function () {
           window.location.reload();
           return;
         }
-      
+
         // If the repo name changes, we reset all fields
         if (repoName !== originalRepoName) {
           resetFields();
@@ -206,8 +202,8 @@ document.addEventListener("DOMContentLoaded", function () {
         var pastedText = (event.clipboardData || window.clipboardData).getData("text");
         var newRepoName = pastedText.trim();
         this.value = newRepoName;
-      
-        resetFields(); 
+
+        resetFields();
       });
     }
   }

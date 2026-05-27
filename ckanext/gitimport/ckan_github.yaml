@@ -8,7 +8,7 @@ dataset_fields:
 
 - field_name: github_repo
   label: Repository Name
-  preset: title
+  form_snippet: github_repo.html
   form_placeholder:  e.g. Org/Repo
 
 - field_name: name
