@@ -1,3 +1,17 @@
 #fetch-metadata-btn {
   top: unset !important;
 }
+
+@keyframes gitimport-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.gitimport-spinning {
+  animation: gitimport-spin 1s linear infinite;
+  display: inline-block;
+}

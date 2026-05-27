@@ -168,14 +168,30 @@ document.addEventListener("DOMContentLoaded", function () {
     var originalRepoName = "";
     var lastFetchedRepo = "";
 
+    function setButtonLoading(loading) {
+      if (!fetchButton) return;
+      if (loading) {
+        fetchButton.disabled = true;
+        fetchButton.innerHTML = '<span class="glyphicon glyphicon-refresh gitimport-spinning"></span> Fetching…';
+      } else {
+        fetchButton.disabled = false;
+        fetchButton.textContent = fetchButton.dataset.label;
+      }
+    }
+
     function doFetch(repoName) {
       resetFields();
-      fetchGitHubMetadata(repoName);
+      setButtonLoading(true);
+      fetchGitHubMetadata(repoName).finally(function () {
+        setButtonLoading(false);
+      });
       lastFetchedRepo = repoName;
     }
 
     if (repoInput) {
+      // Store the original button label so it can be restored after loading
       if (fetchButton) {
+        fetchButton.dataset.label = fetchButton.textContent.trim();
         fetchButton.addEventListener("click", function (event) {
           event.preventDefault();
           var repoName = repoInput.value.trim();
