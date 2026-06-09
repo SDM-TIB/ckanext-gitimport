@@ -25,39 +25,29 @@ dataset_fields:
   label: Repository Owner
   form_placeholder: Owner of the GitHub repository
 
-- field_name: github_contributor
-  label: Contributor
-  form_placeholder: The user name of the contributor
-  display_property: dc:creator
-  form_snippet: contributor.html
-  display_snippet: text.html
-
-- field_name: extra_contribs
-  label: More Contributors
+- field_name: github_contributors
+  label: Contributors
+  repeating_label: Contributor
   display_snippet: repeating_subfields_contribs.html
   repeating_subfields:
-    - field_name: extra_contrib
+    - field_name: contributor
       label: Contributor
       form_placeholder: The user name of the contributor
+      display_property: dc:creator
       form_snippet: text.html
+      display_snippet: text.html
 
-- field_name: github_author
-  label: Author
-  form_placeholder: The full name of the Author
-  display_property: dc:creator
-  form_snippet: author.html
-  display_snippet: author.html
-
-
-- field_name: extra_authors
-  label: More Authors
+- field_name: github_authors
+  label: Authors
   display_snippet: repeating_subfields_authors.html
+  repeating_label: Author
   repeating_subfields:
-    - field_name: extra_author
+    - field_name: author
       label: Author
       form_placeholder: The full name of the Author
-      required: false
-      form_snippet: author.html
+      display_property: dc:creator
+      form_snippet: text.html
+      display_snippet: text.html
 
 - field_name: owner_org
   label: Organization
@@ -86,21 +76,16 @@ dataset_fields:
 #   form_placeholder: Link to the Binder environment
 
 
-- field_name: repository_topics
-  label: Repository Topic
-  form_placeholder: Topic or tag related to the repository
-  display_property: dc:creator
-  form_snippet: topic.html
-  display_snippet: text.html
-
-- field_name: extra_topics
-  label: More Topics
+- field_name: github_topics
+  label: Repository Topics
+  repeating_label: Repository Topic
   display_snippet: repeating_subfields_topics.html
   repeating_subfields:
-    - field_name: extra_topic
+    - field_name: repository_topic
       label: Repository Topic
       form_placeholder: Topic or tag related to the repository
       form_snippet: text.html
+      display_snippet: text.html
 
 - field_name: repository_stars
   label: Repository Stars
@@ -113,12 +98,12 @@ dataset_fields:
 - field_name: programming_language
   label: Programming Language
   form_placeholder: Primary programming language used in the repository
-  
+
 resource_fields:
 - field_name: url
   label: URL
   preset: resource_url_upload
-  
+
 - field_name: name
   label: Name
   form_placeholder: eg. January 2011 Gold Prices
@@ -131,5 +116,3 @@ resource_fields:
 - field_name: format
   label: Format
   preset: resource_format_autocomplete
-  
-  

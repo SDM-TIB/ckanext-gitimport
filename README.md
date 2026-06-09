@@ -52,6 +52,14 @@ To install ckanext-gitimport:
 
     This step is required to ensure the "GitHub" dataset type displays correctly in the CKAN UI.
 
+4. Add the following fields to your `schema.xml` for Solr in order to index the corresponding fields:
+
+   ```xml
+   <field name="github_contributors" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="github_authors" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="github_topics" type="string" indexed="true" stored="true" multiValued="true"/>
+   ```
+
 5. Restart CKAN. For example if you've deployed CKAN with Apache on Ubuntu:
 
      sudo service apache2 reload

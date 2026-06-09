@@ -25,9 +25,6 @@ document.addEventListener("DOMContentLoaded", function () {
     function resetFields() {
       var metadataFields = [
         "field-github_owner",
-        "field-github_contributor",
-        "field-github_author",
-        "field-repository_topics",
         "field-license",
         "field-github_description",
         "field-repository_stars",
@@ -39,15 +36,15 @@ document.addEventListener("DOMContentLoaded", function () {
       clearFieldsById(metadataFields);
 
       // Clear dynamic fields for contributors, authors, and topics
-      clearDynamicFields('field-extra_contribs-${index}-extra_contrib', 0);
-      clearDynamicFields('field-extra_authors-${index}-extra_author', 0);
-      clearDynamicFields('field-extra_topics-${index}-extra_topic', 0);
+      clearDynamicFields('field-github_contributors-${index}-contributor', 0);
+      clearDynamicFields('field-github_authors-${index}-author', 0);
+      clearDynamicFields('field-github_topics-${index}-repository_topic', 0);
     }
 
     // Function to fetch GitHub repository metadata from the endpoint
     function fetchGitHubMetadata(repoName) {
       var apiUrl = `/gitimport/fetch?repo_name=${encodeURIComponent(repoName)}`;
-    
+
       // Make a fetch request to the endpoint
       return fetch(apiUrl)
         .then(function (response) {
@@ -65,7 +62,6 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("field-repository_stars").value = data.stars || 0;
             document.getElementById("field-repository_forks").value = data.forks || 0;
             document.getElementById("field-programming_language").value = data.programming_language || "No programming language found";
-             
 
             // Handle topics and contributors
             handleTopics(data.topics || []);
@@ -97,33 +93,26 @@ document.addEventListener("DOMContentLoaded", function () {
     function handleAuthors(contributors) {
       var authors = contributors.map(contributor => contributor.name).filter(name => name);
 
-      if (authors.length > 0) {
-        document.getElementById("field-github_author").value = authors[0];
-      }
-
-      for (var i = 1; i < authors.length; i++) {
-        var fieldId = `field-extra_authors-${i-1}-extra_author`;
+      authors.forEach((author, index) => {
+        var fieldId = `field-github_authors-${index}-author`;
         var existingField = document.getElementById(fieldId);
 
         // Check if the field already exists before adding new ones
-        if (existingField) {
-          existingField.value = authors[i];
-        } else {
+        if (!existingField) {
           var addButton = document.querySelectorAll('.btn.btn-link[name="repeating-add"]')[1];
           addButton.click();
-          setTimeout(function() {
-            var newField = document.getElementById(`field-extra_authors-${i-1}-extra_author`);
-            if (newField) {
-              newField.value = authors[i];
-            }
-          }, 10);
+          existingField = document.getElementById(fieldId);
         }
-      }
+
+        if (existingField) {
+          existingField.value = author;
+        }
+      });
     }
 
     function handleContributors(contributors) {
       contributors.forEach((contributor, index) => {
-        var fieldId = index === 0 ? "field-github_contributor" : `field-extra_contribs-${index-1}-extra_contrib`;
+        var fieldId = `field-github_contributors-${index}-contributor`;
         var existingField = document.getElementById(fieldId);
 
         // Check if the field already exists before adding new ones
@@ -143,7 +132,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function handleTopics(topics) {
       topics.forEach((topic, index) => {
-        var fieldId = index === 0 ? "field-repository_topics" : `field-extra_topics-${index-1}-extra_topic`;
+        var fieldId = `field-github_topics-${index}-repository_topic`;
         var existingField = document.getElementById(fieldId);
 
         // Check if the field already exists before adding new ones
