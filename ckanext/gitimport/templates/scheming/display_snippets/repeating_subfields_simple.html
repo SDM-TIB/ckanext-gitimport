@@ -1,0 +1,13 @@
+{% set fields = data[field.field_name] %}
+
+{% block subfield_display %}
+<dl class="scheming-subfield-list">
+  {% for field_data in fields %}
+    {% for key in field_data %}
+      <dd>
+        {{ field_data[key] }}
+      </dd>
+    {% endfor %}
+  {% endfor %}
+</dl>
+{% endblock %}

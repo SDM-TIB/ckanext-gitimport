@@ -28,7 +28,7 @@ dataset_fields:
 - field_name: github_contributors
   label: Contributors
   repeating_label: Contributor
-  display_snippet: repeating_subfields_contribs.html
+  display_snippet: repeating_subfields_simple.html
   repeating_subfields:
     - field_name: contributor
       label: Contributor
@@ -39,7 +39,7 @@ dataset_fields:
 
 - field_name: github_authors
   label: Authors
-  display_snippet: repeating_subfields_authors.html
+  display_snippet: repeating_subfields_simple.html
   repeating_label: Author
   repeating_subfields:
     - field_name: author
@@ -79,7 +79,7 @@ dataset_fields:
 - field_name: github_topics
   label: Repository Topics
   repeating_label: Repository Topic
-  display_snippet: repeating_subfields_topics.html
+  display_snippet: repeating_subfields_simple.html
   repeating_subfields:
     - field_name: repository_topic
       label: Repository Topic
