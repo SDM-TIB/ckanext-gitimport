@@ -1,18 +1,12 @@
 {% ckan_extends %}
 
-{% block header_site_navigation %}
+{% block header_site_navigation_tabs %}
     {{ super() }}
-    <nav class="section navigation">
-        <ul class="nav nav-pills">
-            <li>
-                <button type="button" id="githubLinkButton" class="btn btn-primary">
-                    GitHub Import
-                </button>
-            </li>
-        </ul>
-    </nav>
-    
-    {% asset "gitimport/get_dataset_js" %}
-    {% asset "gitimport/gitimport_js" %}
+    <li>
+        <a href="{{ h.url_for('github.search') }}" id="githubLinkButton">
+            GitHub Import
+        </a>
+    </li>
 
+    {% asset "gitimport/gitimport_js" %}
 {% endblock %}
