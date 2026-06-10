@@ -1,12 +1,13 @@
 import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
-from ckan.plugins import interfaces, SingletonPlugin, implements
+from .helpers import gitimport_header
 from .views import gitimport
 
 
-class GitimportPlugin(SingletonPlugin):
+class GitimportPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
-    implements(interfaces.IBlueprint)
+    plugins.implements(plugins.IBlueprint)
+    plugins.implements(plugins.ITemplateHelpers)
 
     def update_config(self, config_):
         toolkit.add_template_directory(config_, "templates")
@@ -15,3 +16,8 @@ class GitimportPlugin(SingletonPlugin):
 
     def get_blueprint(self):
         return [gitimport]
+
+    def get_helpers(self):
+        return {
+            "gitimport_header": gitimport_header,
+        }

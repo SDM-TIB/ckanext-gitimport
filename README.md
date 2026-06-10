@@ -81,7 +81,11 @@ To install ckanext-gitimport:
    ckanext.gitimport.github_access_token = YOUR_GITHUB_ACCESS_TOKEN
    ``` 
 
-    
+5. You can disable the "GitHub Import" link in the header by setting the following in your CKAN config file:
+
+   ```ini
+   ckanext.gitimport.add_header_link = false
+   ```
 
 ## How it works?
 To use the plugin:

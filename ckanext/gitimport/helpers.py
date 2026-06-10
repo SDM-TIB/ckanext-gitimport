@@ -1,9 +1,7 @@
+from ckan.common import config
+from ckan.plugins.toolkit import asbool
 
-def gitimport_hello():
-    return "Hello, gitimport!"
 
-
-def get_helpers():
-    return {
-        "gitimport_hello": gitimport_hello,
-    }
+def gitimport_header():
+    """Whether to add the GitHub import link to the header."""
+    return bool(asbool(config.get("ckanext.gitimport.add_header_link", True)))
