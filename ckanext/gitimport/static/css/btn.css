@@ -2,6 +2,12 @@
   top: unset !important;
 }
 
+#fetch-metadata-btn.gitimport-loading {
+  pointer-events: none;
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
 @keyframes gitimport-spin {
   from {
     transform: rotate(0deg);
