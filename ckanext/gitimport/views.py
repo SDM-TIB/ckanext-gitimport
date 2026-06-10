@@ -2,10 +2,13 @@ from flask import Blueprint, jsonify
 from ckan.common import config, request
 import requests
 
+
 def get_github_access_token():
     return config.get("ckanext.gitImport.github_access_token", None)
 
+
 gitimport = Blueprint("gitimport", __name__)
+
 
 # Defining a Route for "gitimport"
 @gitimport.route("/gitimport/fetch", methods=["GET"])
@@ -83,4 +86,3 @@ def fetch_github_metadata():
         metadata["error"] = "Failed to fetch repository metadata"
 
     return jsonify(metadata)
-
