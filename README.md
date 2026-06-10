@@ -23,20 +23,22 @@ This extension also requires [`ckanext-scheming`](https://github.com/ckan/ckanex
 To install ckanext-gitimport:
 
 1. Activate your CKAN virtual environment, for example:
-
-     . /usr/lib/ckan/default/bin/activate
+   ```bash
+   . /usr/lib/ckan/default/bin/activate
+   ```
 
 2. Clone the source and install it on the virtualenv
-
-    git clone https://github.com/SDM-TIB/ckanext-gitimport
-    cd ckanext-gitimport
-    pip install -e .
-	pip install -r requirements.txt
+   ```bash
+   git clone https://github.com/SDM-TIB/ckanext-gitimport
+   cd ckanext-gitimport
+   pip install -e .
+   pip install -r requirements.txt
+   ```
 
 3. **Add support for the "GitHub" dataset type title in your CKAN theme**:  
    If you are using a custom CKAN theme such as `ckanext-TIBtheme`, you **must** update the method `get_dataset_type_title` in:
 
-   `Plugins/ckanext-TIBtheme/ckanext/TIBtheme/plugin.py`
+   `ckanext-TIBtheme/ckanext/TIBtheme/plugin.py`
    
 	to this:
 
@@ -61,20 +63,23 @@ To install ckanext-gitimport:
    ```
 
 5. Restart CKAN. For example if you've deployed CKAN with Apache on Ubuntu:
+   ```bash
+   sudo service apache2 reload
+   ```
 
-     sudo service apache2 reload
-
-## Config settings
+## Config Settings
 
 1. Add the plugin `gitimport` to the `ckan.plugins` list in the CKAN config file`ckan-entrypoint.sh`.
   
-3. Add `ckanext.gitimport:ckan_github.yaml` to the `scheming.dataset_schemas` entry in your CKAN config.
+2. Add `ckanext.gitimport:ckan_github.yaml` to the `scheming.dataset_schemas` entry in your CKAN config.
   
-4. The plugin requires a GitHub access token to fetch repository data. Please ensure that the token is valid as they usually expire after a certain time. You will need to regenerate a new token periodically to maintain functionality.
+3. The plugin requires a GitHub access token to fetch repository data. Please ensure that the token is valid as they usually expire after a certain time. You will need to regenerate a new token periodically to maintain functionality.
 
-5. Add your GitHub access token to the CKAN config file(ckan-entrypoint.sh):
+4. Add your GitHub access token to your CKAN config file:
 
-    ckanext.gitimport.github_access_token = YOUR_GITHUB_ACCESS_TOKEN 
+    ```ini
+   ckanext.gitimport.github_access_token = YOUR_GITHUB_ACCESS_TOKEN
+   ``` 
 
     
 
@@ -83,8 +88,10 @@ To use the plugin:
 
 1. In your CKAN instance, access the "GitHub Import" button in navigation bar.
 2. Then click on "Add GitHub" where you will find the template.
-3. Enter the GitHub repository name (e.g., SDM-TIB/ckanext-gitimport) in the provided template field then press the "Fetch Metadata" button.
+3. Enter the GitHub repository name (e.g., `SDM-TIB/ckanext-gitimport`) in the provided template field then press the "Fetch Metadata" button.
 4. The plugin will then fetch and display the repository metadata.
 
 ## Note
-This plugin is designed to work with the "GitHub" template, which is created using the ckanext-scheming extension. The template consists of a YAML file that details the schema and the necessary HTML files. Ensure that ckanext-scheming is also installed and properly configured in your CKAN instance.
+This plugin is designed to work with the "GitHub" template, which is created using the `ckanext-scheming` extension.
+The template consists of a YAML file that details the schema and the necessary HTML files.
+Ensure that `ckanext-scheming` is also installed and properly configured in your CKAN instance.
